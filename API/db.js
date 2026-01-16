@@ -2,7 +2,8 @@ const admin = require('firebase-admin');
 
 function initializeFirestore() {
     //Incarca fisierul de configurare Firebase
-    const serviceAccount = require('./firebase-key.json');
+    const keyPath = process.env.FIREBASE_KEY_PATH;
+    const serviceAccount = require(keyPath);
 
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount)
@@ -11,10 +12,6 @@ function initializeFirestore() {
     // Returneaza instanta bd Firesotore
     return admin.firestore();
 }
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
 
 const db = initializeFirestore();
 
